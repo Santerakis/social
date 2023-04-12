@@ -1,4 +1,5 @@
 import React from 'react';
+import style from '../Header/Header.module.css'
 
 const Navbar = () => {
     return (
@@ -7,7 +8,7 @@ const Navbar = () => {
                 <a>Profile</a>
             </div>
             <div>
-                <a>Messages</a>
+                <a className={style.col}>Messages</a>
             </div>
             <div>
                 <a>New</a>
