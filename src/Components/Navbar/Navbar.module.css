@@ -1,0 +1,14 @@
+.nav {
+    grid-area: n;
+    background-color: lightseagreen;
+    padding: 10px;
+}
+.item a {
+    color: beige;
+    text-decoration: none;
+}
+
+/*a в iteme и с классом active*/
+.item a.active {
+    color: black;
+}

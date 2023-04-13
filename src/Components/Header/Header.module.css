@@ -1,3 +1,7 @@
-.col {
-    color: blueviolet;
+.header {
+    grid-area: h;
+    background-color: green;
+}
+.header img {
+    width: 40px;
 }
