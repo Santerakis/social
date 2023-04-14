@@ -8,20 +8,26 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
+import {DataType} from "./index";
 
-function App() {
+type AppPropsType = {
+    data: DataType
+}
+
+function App(props: AppPropsType) {
     return (
-            <div className='appWrapper'>
-                <Header/>
-                <Navbar/>
-                <div className='appWrapperContent'>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/new'} component={New}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
-                </div>
+        <div className='appWrapper'>
+            <Header/>
+            <Navbar/>
+            <div className='appWrapperContent'>
+                <Route path={'/profile'} component={() => <Profile posts={props.data.posts}/>}/>
+                <Route path={'/dialogs'}
+                       render={() => <Dialogs dialogs={props.data.dialogs} messages={props.data.messages}/>}/>
+                <Route path={'/new'} component={New}/>
+                <Route path={'/music'} component={Music}/>
+                <Route path={'/settings'} component={Settings}/>
             </div>
+        </div>
     );
 }
 

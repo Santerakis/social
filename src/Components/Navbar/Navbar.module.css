@@ -3,12 +3,16 @@
     background-color: lightseagreen;
     padding: 10px;
 }
+
+
 .item a {
     color: beige;
     text-decoration: none;
+    font-weight: 800;
 }
 
 /*a в iteme и с классом active*/
 .item a.active {
     color: black;
+    font-weight: 800;
 }

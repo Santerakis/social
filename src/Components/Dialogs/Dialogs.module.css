@@ -10,14 +10,18 @@
 .dialogsItems {
     padding: 10px;
 }
-.dialogsItems .active {
-    color: darkorange;
+a{
+    color: #deafc0;
+    text-decoration: none;
+    font-weight: 700;
 }
 
 .messages {
     padding: 10px;
 }
 
-.message {
-
+.active {
+    color: red;
+    text-decoration: none;
+    font-weight: 700;
 }
