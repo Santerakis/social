@@ -1,18 +1,8 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
-import {PostType} from "../../../index";
+import {PostType} from "../../../redux/state";
 
-// type PostType = {
-//     id: number
-//     message: string
-//     likesCount: string
-// }
-// let posts: PostType[] = [
-//     {id: 1, message: 'Hi, how are you?', likesCount: '25'},
-//     {id: 2, message: 'It\'s my first post', likesCount:'105'},
-//     {id: 3, message: 'Hello', likesCount:'8'},
-// ]
 type MyPostsPropsType = {
     posts: PostType[]
 }
