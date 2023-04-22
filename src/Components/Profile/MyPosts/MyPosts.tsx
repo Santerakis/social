@@ -28,7 +28,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     }
 
     return (
-        <div className={s.myPos tsBlock}>
+        <div className={s.myPostsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
