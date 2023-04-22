@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
-import {ActionType, addPostAC, PostType, updateNewPostTextAC} from "../../../redux/state";
+import {ActionType, PostType} from "../../../redux/store";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
 
 type MyPostsPropsType = {
     posts: PostType[]
@@ -27,7 +28,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     }
 
     return (
-        <div className={s.myPostsBlock}>
+        <div className={s.myPos tsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>

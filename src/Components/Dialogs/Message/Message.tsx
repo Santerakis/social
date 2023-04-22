@@ -7,7 +7,7 @@ type MessagePropsType = {
 }
 const Message = (props: MessagePropsType) => {
     return (
-        <div key={props.id} className={s.message}>{props.message}</div>
+        <div key={props.id} className={s.message}>{props.message} 💬</div>
     )
 }
 

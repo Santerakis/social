@@ -1,3 +1,6 @@
+import profileReducer, {ProfileActionType} from "./profileReducer";
+import messageReducer, {MessageActionType} from "./messageReducer";
+
 let store: StoreType = {
     _state: {
         profilePage: {
@@ -53,24 +56,11 @@ let store: StoreType = {
         this._callSubscriber()
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            this._addPost()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._updateNewPostText(action.newText)
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._updateNewMessageText(action.newText)
-        } else if (action.type === 'ADD-MESSAGE') {
-            this._addMessage()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagePage = messageReducer(this._state.messagePage, action)
+        this._callSubscriber()
     }
 }
-
-export const addPostAC = (): AddPostActionType => ({type: 'ADD-POST'} as const) //Либо as const, либо возвращаймый тип, но когда исп ReturnType<> возн. зациклнинность типов, тогда только const
-
-export const updateNewPostTextAC = (newText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText} as const)
-export const updateNewMessageTextAC = (newText: string) => ({type: 'UPDATE-NEW-MESSAGE-TEXT', newText} as const)
-export const addMessageAC = () => ({type: 'ADD-MESSAGE'} as const)
-
 
 // @ts-ignore
 window.store = store
@@ -116,14 +106,7 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type ActionType =
-    AddPostActionType
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof updateNewMessageTextAC>
-    | ReturnType<typeof addMessageAC>
+export type ActionType = ProfileActionType | MessageActionType
 
 
 

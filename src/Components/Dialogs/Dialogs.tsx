@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {ActionType, addMessageAC, MessagePageType, updateNewMessageTextAC} from "../../redux/state";
+import {ActionType, MessagePageType} from "../../redux/store";
+import {addMessageAC, updateNewMessageTextAC} from "../../redux/messageReducer";
 
 type DialogsPropsType = {
     dispatch: (action: ActionType) => void
@@ -30,7 +31,7 @@ const Dialogs = (props: DialogsPropsType) => {
                 <div>
                     <div><textarea cols={15} rows={2} placeholder='enter your message' onChange={onChangeArea}
                                    value={props.messagePage.newMessageText}/></div>
-                    <button onClick={onAddMessage}>add message</button>
+                    <button onClick={onAddMessage}>send message</button>
                 </div>
             </div>
 
