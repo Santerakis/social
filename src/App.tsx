@@ -9,8 +9,10 @@ import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import {ActionType, StateType} from "./redux/store";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
+    store: any
     state: StateType
     dispatch: (action: ActionType) => void
 }
@@ -23,14 +25,9 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className='appWrapperContent'>
                 <Route path={'/profile'} render={() =>
-                    <Profile
-                        dispatch={props.dispatch}
-                        profilePage={props.state.profilePage}
-                    />}/>
+                    <Profile store={props.store}/>}/>
                 <Route path={'/dialogs'}
-                       render={() => <Dialogs dispatch={props.dispatch}
-                                              messagePage={props.state.messagePage}
-                       />}/>
+                       render={() => <DialogsContainer store={props.store}/>}/>
                 <Route path={'/new'} render={New}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
