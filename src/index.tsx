@@ -9,7 +9,7 @@ import StoreContext from "./StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-const rerenderEntireTree = (store: any) => {
+const rerenderEntireTree = () => {
     root.render(
         <BrowserRouter>
             <StoreContext.Provider value={store}>
@@ -18,9 +18,9 @@ const rerenderEntireTree = (store: any) => {
         </BrowserRouter>);
 }
 
-rerenderEntireTree(store)
+rerenderEntireTree()
 
-store.subscribe(() => {rerenderEntireTree(store)})
+store.subscribe(() => {rerenderEntireTree()})
 
 
 

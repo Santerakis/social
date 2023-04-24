@@ -62,8 +62,6 @@ let store: StoreType = {
     }
 }
 
-// @ts-ignore
-window.store = store
 
 export default store
 

@@ -1,5 +1,6 @@
 import React from "react";
-import {StoreType} from "./redux/store";
+
+import { StoreType} from "./redux/reduxStore";
 
 // interface ContexProps {
 //     state: StateType
