@@ -9,6 +9,7 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import Users from "./Components/Users/Users";
+import {UsersContainer} from "./Components/Users/UsersContainer";
 
 function App() {
     console.log('render App')
@@ -24,7 +25,8 @@ function App() {
                 <Route path={'/new'} render={New}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
-                <Route path={'/users'} render={Users}/>
+                <Route path={'/users'} render={() =>
+                <UsersContainer/>}/>
             </div>
         </div>
     );

@@ -1,9 +1,14 @@
 import React from 'react';
+import {UserType} from "../../redux/usersReducer";
 
-const Users = () => {
+export type UsersPropsType = {
+    users: UserType[]
+}
+
+const Users = (props: UsersPropsType) => {
     return (
         <div>
-            Users
+            {props.users.map(u => <div key={u.id}>{u.fullname}</div>)}
         </div>
     );
 };

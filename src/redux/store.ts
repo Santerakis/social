@@ -89,7 +89,7 @@ export type MessagePageType = {
     messages: MessageType[]
     newMessageText: string
 }
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
 }

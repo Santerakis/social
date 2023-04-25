@@ -1,42 +1,38 @@
-import {ProfilePageType} from "./store";
 import {ActionType} from "./reduxStore";
 
-
+export type LocationType = {city: string, country: string}
+export type UserType = {id: number, followed: boolean, fullname: string, status: string, location: LocationType}
+export type UsersPageType = {
+    users: UserType[]
+}
 let initialState = {
-    users: [{id: 1, message: 'Hi, how are you?', likesCount: 25}, {id: 2, message: 'It\'s my first post', likesCount: 105}, {id: 3, message: 'Hello', likesCount: 8}],
-    newPostText: 'insert new post'
+    users:
+        [{id: 1, followed: true, fullname: 'Sergey', status: 'I am a boss', location: {city: 'Daugavpils', country: 'Latvia'}},
+        {id: 1, followed: true, fullname: 'Dima', status: 'I am a gym', location: {city: 'Gumgurg', country: 'Niderland'}},
+        {id: 1, followed: false, fullname: 'Kate', status: 'I am a girl', location: {city: 'LA', country: 'USA'}},
+        {id: 1, followed: true, fullname: 'Alla', status: 'I am a boss', location: {city: 'London', country: 'UK'}}],
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
-
+const userReducer = (state: UsersPageType = initialState, action: ActionType) => {
     switch (action.type) {
-        case 'UPDATE-NEW-POST-TEXT':
-            return {...state, newPostText: action.newPostText}
-        // state.newPostText = action.newPostText
-        // return state
-        case 'ADD-POST': {
-            let newPost = {
-                id: 88,
-                message: state.newPostText,
-                likesCount: 0
-            }
-            let newState = {...state, posts: [newPost, ...state.posts], newPostText: ''}
-            // state.posts.unshift(newPost)
-            // state.newPostText = ''
-            return newState
-        }
+        case 'FOLLOW':
+            return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: true} :u)}
+        case 'UNFOLLOW':
+            return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: false} :u)}
+        case 'SET-USERS':
+            return {...state, users: [...state.users, action.users]}
         default:
             return state
     }
 }
-export const addPostAC = (): AddPostActionType => ({type: 'ADD-POST'} as const) //Либо as const, либо возвращаймый тип, но когда исп ReturnType<> возн. зациклнинность типов, тогда только const
-export const updateNewPostTextAC = (newPostText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newPostText} as const)
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type ProfileActionType =
-    AddPostActionType
-    | ReturnType<typeof updateNewPostTextAC>
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
+export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 
-export default profileReducer
+export type UsersAT =
+    ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+
+export default userReducer
