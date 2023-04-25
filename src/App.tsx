@@ -10,7 +10,6 @@ import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 function App() {
-
     return (
         <div className='appWrapper'>
             <Header/>

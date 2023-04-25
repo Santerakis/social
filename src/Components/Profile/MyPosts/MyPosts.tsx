@@ -10,7 +10,6 @@ type MyPostsPropsType = {
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-
     let postsElements = props.profilePage.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

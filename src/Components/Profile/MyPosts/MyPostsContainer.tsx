@@ -38,7 +38,6 @@ const mapStateToProps = (state: RootStateType) => ({profilePage: state.profilePa
 const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
     return {
         onAddPost: () => {
-            debugger
             dispatch(addPostAC())
         },
         onPostChange: (newText: string) => {
