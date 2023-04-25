@@ -7,14 +7,6 @@ import {StoreType} from "./redux/reduxStore";
 //     getState: () => StateType
 // }
 
-
 const StoreContext = React.createContext({} as StoreType)
-
-// export const Provider = (props: any) => {
-//     return <StoreContext.Provider value={props.store}>
-//             {props.children}
-//             < /StoreContext.Provider>
-// }
-
 
 export default StoreContext

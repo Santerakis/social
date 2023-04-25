@@ -1,4 +1,5 @@
-import {ActionType, MessagePageType} from "./store";
+import {MessagePageType} from "./store";
+import {ActionType} from "./reduxStore";
 
 let initialState = {
     dialogs: [{id: 1, name: 'Sergey'}, {id: 2, name: 'Dima'}, {id: 3, name: 'Natasha'}],

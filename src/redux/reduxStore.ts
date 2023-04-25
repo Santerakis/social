@@ -1,6 +1,6 @@
 import {combineReducers, createStore } from "redux";
-import profileReducer from "./profileReducer";
-import messageReducer from "./messageReducer";
+import profileReducer, {ProfileActionType} from "./profileReducer";
+import messageReducer, {MessageActionType} from "./messageReducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -14,3 +14,5 @@ export type StoreType = typeof store
 
 // @ts-ignore
 window.store = store;
+
+export type ActionType = ProfileActionType | MessageActionType

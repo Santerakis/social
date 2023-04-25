@@ -1,4 +1,5 @@
-import {ActionType, ProfilePageType} from "./store";
+import {ProfilePageType} from "./store";
+import {ActionType} from "./reduxStore";
 
 let initialState = {
         posts: [{id: 1, message: 'Hi, how are you?', likesCount: 25}, {

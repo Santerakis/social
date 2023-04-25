@@ -1,5 +1,6 @@
-import profileReducer, {ProfileActionType} from "./profileReducer";
-import messageReducer, {MessageActionType} from "./messageReducer";
+import profileReducer from "./profileReducer";
+import messageReducer from "./messageReducer";
+import {ActionType} from "./reduxStore";
 
 let store: StoreType = {
     _state: {
@@ -104,7 +105,6 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
-export type ActionType = ProfileActionType | MessageActionType
 
 
 
