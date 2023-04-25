@@ -10,19 +10,21 @@ let initialState = {
 const messageReducer = (state: MessagePageType = initialState, action: ActionType) => {
 
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.newMessageText
-            return state
-
-        case 'ADD-MESSAGE':
+        case 'UPDATE-NEW-MESSAGE-TEXT': {
+            let newState = {...state, newMessageText: action.newMessageText}
+            // state.newMessageText = action.newMessageText
+            return newState
+        }
+        case 'ADD-MESSAGE': {
             let newMessage = {
                 id: 1,
                 message: state.newMessageText
             }
-            state.messages.unshift(newMessage)
-            state.newMessageText = ''
-            return state
-
+            let newState = {...state, messages: [newMessage, ...state.messages], newMessageText: ''}
+            // state.messages.unshift(newMessage)
+            // state.newMessageText = ''
+            return newState
+        }
         default:
             return state
     }

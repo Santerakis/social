@@ -25,7 +25,9 @@ import {ActionType, RootStateType} from "../../redux/reduxStore";
 
 const mapStateToProps = (state: RootStateType) => {
     return {
-        messagePage: state.messagePage
+        dialogs: state.messagePage.dialogs,
+        messages: state.messagePage.messages,
+        newMessageText: state.messagePage.newMessageText
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {

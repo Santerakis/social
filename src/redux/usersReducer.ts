@@ -3,17 +3,17 @@ import {ActionType} from "./reduxStore";
 
 
 let initialState = {
-        posts: [{id: 1, message: 'Hi, how are you?', likesCount: 25}, {id: 2, message: 'It\'s my first post', likesCount: 105}, {id: 3, message: 'Hello', likesCount: 8}],
-        newPostText: 'insert new post'
-    }
+    users: [{id: 1, message: 'Hi, how are you?', likesCount: 25}, {id: 2, message: 'It\'s my first post', likesCount: 105}, {id: 3, message: 'Hello', likesCount: 8}],
+    newPostText: 'insert new post'
+}
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
 
     switch (action.type) {
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newPostText}
-            // state.newPostText = action.newPostText
-            // return state
+        // state.newPostText = action.newPostText
+        // return state
         case 'ADD-POST': {
             let newPost = {
                 id: 88,

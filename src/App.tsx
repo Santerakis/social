@@ -8,8 +8,10 @@ import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import Users from "./Components/Users/Users";
 
 function App() {
+    console.log('render App')
     return (
         <div className='appWrapper'>
             <Header/>
@@ -22,6 +24,7 @@ function App() {
                 <Route path={'/new'} render={New}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
+                <Route path={'/users'} render={Users}/>
             </div>
         </div>
     );
