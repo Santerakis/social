@@ -8,7 +8,7 @@ let initialState = {
     }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
-
+    console.log('render profileReducer')
     switch (action.type) {
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newPostText}

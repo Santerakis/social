@@ -8,11 +8,10 @@ import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-import Users from "./Components/Users/Users";
 import {UsersContainer} from "./Components/Users/UsersContainer";
+import {store} from "./redux/reduxStore";
 
 function App() {
-    console.log('render App')
     return (
         <div className='appWrapper'>
             <Header/>

@@ -1,8 +1,8 @@
-import React, {Dispatch} from 'react';
 import MyPosts from "./MyPosts";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
 import {ActionType, RootStateType} from "../../../redux/reduxStore";
 import {connect} from "react-redux";
+import { Dispatch } from 'redux';
 
 
 // const MyPostsContainer = () => {

@@ -1,8 +1,9 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/messageReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {ActionType, RootStateType} from "../../redux/reduxStore";
+import {Dispatch} from "redux";
 
 // const DialogsContainer = () => {
 //
