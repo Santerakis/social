@@ -11,39 +11,45 @@ type ResponseType = {
     totalCount: number
 }
 
-const Users = (props: UsersPropsType) => {
-    console.log('render Users')
-    const getUsers = () => {
-        if (props.users.length === 0) {
+class Users extends React.Component<UsersPropsType, any>{
+
+    getUsers = () => {                        //что бы контекст вызова сохранился
+        if (this.props.users.length === 0) {
             axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(res =>  props.setUsers(res.data.items))
+                .then(res =>  this.props.setUsers(res.data.items))
         }
     }
 
-    return <div>
-        <p>Users</p>
-        <button onClick={getUsers}>get users</button>
-        {props.users.map(u => {
-            return <div key={u.id} className={s.user}>
-                <div>
-                    <img src={u.photos.small != null ?u.photos.small :userPhoto} className={s.userPhoto} alt="user photo"/>
-                    {u.followed
-                        ?<div><button className={s.button} onClick={() => {props.unfollow(u.id)}}>unfollow</button></div>
-                        :<div><button className={s.button} onClick={() => {props.follow(u.id)}}>follow</button></div>}
-                </div>
-                <div className={s.userInfo}>
+    render() {
+        return <div>
+            <p>Users</p>
+            <button onClick={this.getUsers}>get users</button>
+            {this.props.users.map(u => {
+                return <div key={u.id} className={s.user}>
                     <div>
-                        <div>{u.name}</div>
-                        <div>{'u.status'}</div>
+                        <img src={u.photos.small != null ?u.photos.small :userPhoto} className={s.userPhoto} alt="user photo"/>
+                        {u.followed
+                            ?<div><button className={s.button} onClick={() => {this.props.unfollow(u.id)}}>unfollow</button></div>
+                            :<div><button className={s.button} onClick={() => {this.props.follow(u.id)}}>follow</button></div>}
                     </div>
-                    <div className={s.location}>
-                        <div>{'u.location.country'},</div>
-                        <div>{'u.location.city'}</div>
+                    <div className={s.userInfo}>
+                        <div>
+                            <div>{u.name}</div>
+                            <div>{'u.status'}</div>
+                        </div>
+                        <div className={s.location}>
+                            <div>{'u.location.country'},</div>
+                            <div>{'u.location.city'}</div>
+                        </div>
                     </div>
+
+
+
+
                 </div>
-            </div>
-        })}
-    </div>
+            })}
+        </div>
+    }
 }
 
 export default Users;
