@@ -4,6 +4,7 @@ import s from './Users.module.css'
 import axios from "axios";
 import userPhoto from '../../assets/images/social_user.png'
 import {UserType} from "../../redux/usersReducer";
+import Pagination from '@mui/material/Pagination';
 
 type ResponseType = {
     error: null
@@ -12,17 +13,23 @@ type ResponseType = {
 }
 
 class Users extends React.Component<UsersPropsType>{
-
-    // constructor(props: UsersPropsType) {
-    //     super(props);
-    //     alert('New Object')
-    //     axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
-    //         .then(res =>  this.props.setUsers(res.data.items))
-    // }
     componentDidMount() {
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(res =>  {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
+            })
+    }
+    onSelectPage = (page: number) => {
+        this.props.selectPage(page)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(res =>  this.props.setUsers(res.data.items))
     }
+    handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        this.props.selectPage(value)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${value}&count=${this.props.pageSize}`)
+            .then(res =>  this.props.setUsers(res.data.items))
+    };
 
     // getUsers = () => {                        //что бы контекст вызова сохранился
     //     if (this.props.users.length === 0) {
@@ -32,7 +39,7 @@ class Users extends React.Component<UsersPropsType>{
     // }
 
     render() {
-        let pagesCount = Math.ceil(this.props.totalUserCount / this.props.pageSize)
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
         let pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push({id: i})
@@ -40,7 +47,8 @@ class Users extends React.Component<UsersPropsType>{
         console.log(pages)
         return <div>
             <p>Users</p>
-            {pages.map(p => <button onClick={() => {this.props.selectPage(p.id)}} className={this.props.currentPage === p.id ?s.selectedButton :''}>{p.id}</button>)}
+            <Pagination count={pagesCount} page={this.props.currentPage} onChange={this.handleChange} color="primary" size="small"/>
+            {/*{pages.map(p => <button onClick={(e) =>{this.onSelectPage(p.id)}} className={this.props.currentPage === p.id ?s.selectedButton :''}>{p.id}</button>)}*/}
             {this.props.users.map(u => {
                 return <div key={u.id} className={s.user}>
                     <div>

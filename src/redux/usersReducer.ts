@@ -5,13 +5,13 @@ export type UserType = {name: string, id: number, uniqueUrlName: null, photos: {
 export type UsersPageType = {
     users: UserType[]
     pageSize: number
-    totalUserCount: number
+    totalUsersCount: number
     currentPage: number
 }
 let initialState = {
     users: [],
     pageSize: 5,
-    totalUserCount: 15,
+    totalUsersCount: 15,
     currentPage: 1
 }
 // let initialState = {
@@ -30,9 +30,11 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
         case 'UNFOLLOW':
             return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: false} :u)}
         case 'SET-USERS':
-            return {...state, users: [...state.users, ...action.users] as UserType[]}
+            return {...state, users: [...action.users] as UserType[]}
         case 'SET-CURRENT-PAGE' :
             return {...state, currentPage: action.currentPage}
+        case 'SET-TOTAL-USER-COUNT' :
+            return {...state, totalUsersCount: action.count}
         default:
             return state
     }
@@ -42,11 +44,13 @@ export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
 export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
 export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalUsersCountAC = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
 
 export type UsersAT =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 export default userReducer
