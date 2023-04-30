@@ -11,19 +11,25 @@ type ResponseType = {
     totalCount: number
 }
 
-class Users extends React.Component<UsersPropsType, any>{
+class Users extends React.Component<UsersPropsType>{
 
-    getUsers = () => {                        //что бы контекст вызова сохранился
-        if (this.props.users.length === 0) {
-            axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(res =>  this.props.setUsers(res.data.items))
-        }
+    constructor(props: UsersPropsType) {
+        super(props);
+        alert('New Object')
+        axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res =>  this.props.setUsers(res.data.items))
     }
+
+    // getUsers = () => {                        //что бы контекст вызова сохранился
+    //     if (this.props.users.length === 0) {
+    //         axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
+    //             .then(res =>  this.props.setUsers(res.data.items))
+    //     }
+    // }
 
     render() {
         return <div>
             <p>Users</p>
-            <button onClick={this.getUsers}>get users</button>
             {this.props.users.map(u => {
                 return <div key={u.id} className={s.user}>
                     <div>
