@@ -20,7 +20,7 @@ class Users extends React.Component<UsersPropsType>{
     //         .then(res =>  this.props.setUsers(res.data.items))
     // }
     componentDidMount() {
-        axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(res =>  this.props.setUsers(res.data.items))
     }
 
@@ -32,8 +32,15 @@ class Users extends React.Component<UsersPropsType>{
     // }
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUserCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push({id: i})
+        }
+        console.log(pages)
         return <div>
             <p>Users</p>
+            {pages.map(p => <button onClick={() => {this.props.selectPage(p.id)}} className={this.props.currentPage === p.id ?s.selectedButton :''}>{p.id}</button>)}
             {this.props.users.map(u => {
                 return <div key={u.id} className={s.user}>
                     <div>
@@ -52,10 +59,6 @@ class Users extends React.Component<UsersPropsType>{
                             <div>{'u.location.city'}</div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             })}
         </div>

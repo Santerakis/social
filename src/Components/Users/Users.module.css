@@ -32,3 +32,6 @@
     border-radius: 6px;
     border: none;
 }
+.selectedButton{
+    background: darkgray;
+}

@@ -4,9 +4,15 @@ export type LocationType = {city: string, country: string}
 export type UserType = {name: string, id: number, uniqueUrlName: null, photos: {small: null, large: null}, status: null, followed: boolean}
 export type UsersPageType = {
     users: UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
 }
 let initialState = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUserCount: 15,
+    currentPage: 1
 }
 // let initialState = {
 //     users:
@@ -25,6 +31,8 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
             return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: false} :u)}
         case 'SET-USERS':
             return {...state, users: [...state.users, ...action.users] as UserType[]}
+        case 'SET-CURRENT-PAGE' :
+            return {...state, currentPage: action.currentPage}
         default:
             return state
     }
@@ -33,10 +41,12 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
 export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
 export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
 export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
+export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 
 export type UsersAT =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
 
 export default userReducer
