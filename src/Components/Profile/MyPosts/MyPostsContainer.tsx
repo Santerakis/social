@@ -4,7 +4,6 @@ import {ActionType, RootStateType} from "../../../redux/reduxStore";
 import {connect} from "react-redux";
 import { Dispatch } from 'redux';
 
-
 // const MyPostsContainer = () => {
 //
 //     return (

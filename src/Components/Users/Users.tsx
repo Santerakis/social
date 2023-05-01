@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import userPhoto from '../../assets/images/social_user.png'
 import {UserType} from "../../redux/usersReducer";
 import Pagination from "@mui/material/Pagination";
+import {NavLink} from "react-router-dom";
 
 
 type UsersPropsType = {
@@ -33,8 +34,9 @@ const Users = (props: UsersPropsType) => {
         {props.users.map(u => {
             return <div key={u.id} className={s.user}>
                 <div>
-                    <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}
-                         alt="user photo"/>
+                    <NavLink to={'/profile/' + u.id}>
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto} alt="user photo"/>
+                    </NavLink>
                     {u.followed
                         ? <div>
                             <button className={s.button} onClick={() => {

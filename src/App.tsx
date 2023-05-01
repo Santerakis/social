@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
-import Profile from "./Components/Profile/Profile";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {Route} from "react-router-dom";
 import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
@@ -17,7 +17,7 @@ function App() {
             <Navbar/>
             <div className='appWrapperContent'>
                 <Route path={'/profile'} render={() =>
-                    <Profile/>}/>
+                    <ProfileContainer/>}/>
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer/>}/>
                 <Route path={'/new'} render={New}/>

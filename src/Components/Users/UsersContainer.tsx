@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {ActionType, RootStateType} from "../../redux/reduxStore";
+import {RootStateType} from "../../redux/reduxStore";
 import {
     follow, loading,
     setCurrentPage, setTotalUsersCount,
