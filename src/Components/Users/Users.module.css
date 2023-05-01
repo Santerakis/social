@@ -30,8 +30,9 @@
     width: 70px;
     color: darkgreen;
     background: orange;
-    border-radius: 6px;
+    border-radius: 8px;
     border: none;
+
 }
 .selectedButton{
     background: darkgray;

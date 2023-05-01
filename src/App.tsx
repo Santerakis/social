@@ -8,8 +8,7 @@ import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-import {UsersContainer} from "./Components/Users/UsersContainer";
-import {store} from "./redux/reduxStore";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 function App() {
     return (

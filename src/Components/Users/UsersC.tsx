@@ -73,29 +73,11 @@ class Users extends React.Component<UsersPropsType>{
     }
 }
 
-export default Users;
 
 
 
 
-//     {/*{props.users.map(u: any => <div key={u.id}>*/}
-//     {/*    <div>*/}
-//     {/*    <img src={u.photoUrl} className={s.userPhoto}/>*/}
-//     {/*    </div>*/}
-//     {/*    <div>*/}
-//     {/*{u.followed*/}
-//     {/*    ? <button onClick={() => {*/}
-//     {/*    props.unfollow(u.id)*/}
-//     {/*}}>unfollow</button>*/}
-//     {/*    : <button onClick={() => {*/}
-//     {/*    props.follow(u.id)*/}
-//     {/*}}>follow</button>}};*/}
-//
-//     {/*<div>{u.fullname}</div>*/}
-//     {/*<div>{u.status}</div>*/}
-//
-//     {/*<div>{u.location.country}</div>*/}
-//     {/*<div>{u.location.city}</div>*/}
+
 
 // props.setUsers([{id: 1, photoUrl: 'https://i0.wp.com/thecitylife.org/wp-content/uploads/2021/02/011_BOSS_ChrisHemsworth_SR21.jpg?resize=1025%2C1536&ssl=1', followed: false, fullname: 'Sergey', status: 'I am a boss', location: {city: 'Daugavpils', country: 'Latvia'}},
 //     {id: 2, photoUrl: 'https://st.depositphotos.com/1008939/1880/i/450/depositphotos_18807295-stock-photo-portrait-of-handsome-man.jpg', followed: true, fullname: 'Dima', status: 'I am a gym', location: {city: 'Gumgurg', country: 'Niderland'}},
