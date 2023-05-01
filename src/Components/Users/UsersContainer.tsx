@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {ActionType, RootStateType} from "../../redux/reduxStore";
 import {
-    followAC,
+    followAC, isLoadingAC,
     setCurrentPageAC, setTotalUsersCountAC,
     setUsersAC,
     unfollowAC,
@@ -11,12 +11,14 @@ import {Dispatch} from "redux";
 import React from "react";
 import axios from "axios";
 import Users from "./Users";
+import Loader from "../../common/preloader/Loader";
 
 type MapStateToPropsType = {
     users: UserType[]
     pageSize: number
     currentPage: number
     totalUsersCount: number
+    isLoading: boolean
 }
 type MapDispatchToProps = {
     follow: (userId: number) => void
@@ -24,6 +26,7 @@ type MapDispatchToProps = {
     setUsers: (users: UserType[]) => void
     selectPage: (users: number) => void
     setTotalUsersCount: (count: number) => void
+    isLoad: (isLoading: boolean) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 
@@ -35,28 +38,36 @@ type ResponseType = {
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
+        this.props.isLoad(true)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(res => {
                 this.props.setUsers(res.data.items)
                 this.props.setTotalUsersCount(res.data.totalCount)
+                this.props.isLoad(false)
             })
     }
 
     handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         this.props.selectPage(value)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${value}&count=${this.props.pageSize}`)
-            .then(res => this.props.setUsers(res.data.items))
+            .then(res => {
+                this.props.setUsers(res.data.items)
+            })
     }
 
     render() {
-        return <Users users={this.props.users}
-                      pageSize={this.props.pageSize}
-                      currentPage={this.props.currentPage}
-                      totalUsersCount={this.props.totalUsersCount}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
-                      handleChange={this.handleChange}
-        />
+        return <>
+            {this.props.isLoading
+                ? <Loader/>
+                : <Users users={this.props.users}
+                         pageSize={this.props.pageSize}
+                         currentPage={this.props.currentPage}
+                         totalUsersCount={this.props.totalUsersCount}
+                         follow={this.props.follow}
+                         unfollow={this.props.unfollow}
+                         handleChange={this.handleChange}
+                />}
+        </>
     }
 }
 
@@ -68,6 +79,7 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isLoading: state.usersPage.isLoading
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<ActionType>): MapDispatchToProps => {
@@ -86,6 +98,9 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionType>): MapDispatchToProps =>
         },
         setTotalUsersCount: (count: number) => {
             dispatch(setTotalUsersCountAC(count))
+        },
+        isLoad: (iaLoading: boolean) => {
+            dispatch(isLoadingAC(iaLoading))
         },
     }
 }

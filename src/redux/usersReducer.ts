@@ -37,6 +37,8 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
             return {...state, currentPage: action.currentPage}
         case 'SET-TOTAL-USER-COUNT' :
             return {...state, totalUsersCount: action.count}
+        case 'IS-LOADING' :
+            return {...state, isLoading: action.isLoading}
         default:
             return state
     }
@@ -47,6 +49,7 @@ export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as con
 export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalUsersCountAC = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
+export const isLoadingAC = (isLoading: boolean) => ({type: 'IS-LOADING', isLoading} as const)
 
 export type UsersAT =
     ReturnType<typeof followAC>
@@ -54,5 +57,6 @@ export type UsersAT =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof isLoadingAC>
 
 export default userReducer
