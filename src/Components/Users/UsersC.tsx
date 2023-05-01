@@ -21,12 +21,12 @@ class Users extends React.Component<UsersPropsType>{
             })
     }
     onSelectPage = (page: number) => {
-        this.props.selectPage(page)
+        this.props.setCurrentPage(page)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(res =>  this.props.setUsers(res.data.items))
     }
     handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        this.props.selectPage(value)
+        this.props.setCurrentPage(value)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${value}&count=${this.props.pageSize}`)
             .then(res =>  this.props.setUsers(res.data.items))
     };

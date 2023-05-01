@@ -44,19 +44,19 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
     }
 }
 
-export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
-export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
-export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalUsersCountAC = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
-export const isLoadingAC = (isLoading: boolean) => ({type: 'IS-LOADING', isLoading} as const)
+export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
+export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalUsersCount = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
+export const loading = (isLoading: boolean) => ({type: 'IS-LOADING', isLoading} as const)
 
 export type UsersAT =
-    ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof isLoadingAC>
+    ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof loading>
 
 export default userReducer
