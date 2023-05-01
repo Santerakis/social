@@ -28,7 +28,7 @@ const Users = (props: UsersPropsType) => {
     return <div>
         <p>Users</p>
         <Pagination count={pagesCount} page={props.currentPage} onChange={props.handleChange} color="primary"
-                    size="small"/>
+                    size="small" disabled={false}/>
         {/*{pages.map(p => <button onClick={(e) =>{this.onSelectPage(p.id)}} className={this.props.currentPage === p.id ?s.selectedButton :''}>{p.id}</button>)}*/}
         {props.users.map(u => {
             return <div key={u.id} className={s.user}>

@@ -1,18 +1,20 @@
 import {ActionType} from "./reduxStore";
 
-export type LocationType = {city: string, country: string}
+// export type LocationType = {city: string, country: string}
 export type UserType = {name: string, id: number, uniqueUrlName: null, photos: {small: null, large: null}, status: null, followed: boolean}
 export type UsersPageType = {
     users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isLoading: boolean
 }
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 15,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
 }
 // let initialState = {
 //     users:
