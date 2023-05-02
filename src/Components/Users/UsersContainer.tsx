@@ -30,7 +30,7 @@ type MapDispatchToProps = {
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 
-type ResponseType = {
+export type ResponseType = {
     error: null
     items: UserType[]
     totalCount: number

@@ -10,7 +10,7 @@ let store: StoreType = {
                 message: 'It\'s my first post',
                 likesCount: 105
             }, {id: 3, message: 'Hello', likesCount: 8}],
-            newPostText: 'insert new post'
+            newPostText: 'insert new post',
         },
         messagePage: {
             dialogs: [{id: 1, name: 'Sergey'}, {id: 2, name: 'Dima'}, {id: 3, name: 'Natasha'}],
@@ -57,7 +57,7 @@ let store: StoreType = {
         this._callSubscriber()
     },
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        // this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.messagePage = messageReducer(this._state.messagePage, action)
         this._callSubscriber()
     }
@@ -75,12 +75,12 @@ export type MessageType = {
     id: number
     message: string
 }
-export type PostType = {
+type PostType = {
     id: number
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }

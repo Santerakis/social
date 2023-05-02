@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {Route} from "react-router-dom";
 import New from "./Components/New/New";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 function App() {
     return (
@@ -16,7 +16,7 @@ function App() {
             <Header/>
             <Navbar/>
             <div className='appWrapperContent'>
-                <Route path={'/profile'} render={() =>
+                <Route path={'/profile/:userId?'} render={() =>
                     <ProfileContainer/>}/>
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer/>}/>
