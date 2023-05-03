@@ -9,11 +9,12 @@ import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 function App() {
     return (
         <div className='appWrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className='appWrapperContent'>
                 <Route path={'/profile/:userId?'} render={() =>
