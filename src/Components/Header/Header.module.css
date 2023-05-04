@@ -8,8 +8,15 @@
 }
 .loginBlock {
     float: right;
-    margin: 10px;
+    margin: 5px;
 }
 .loginBlock a {
     color: white;
  }
+.loginInfo .loginPhoto {
+    border-radius: 50%;
+    width: 30px;
+}
+.loginInfo {
+    display: flex;
+}

@@ -24,6 +24,7 @@ import {Dispatch} from "redux";
 // };
 // export default DialogsContainer;
 
+
 const mapStateToProps = (state: RootStateType) => {
     return {
         dialogs: state.messagePage.dialogs,
