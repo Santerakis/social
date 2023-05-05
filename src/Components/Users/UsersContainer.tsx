@@ -7,11 +7,10 @@ import {
     unfollow,
     UserType
 } from "../../redux/usersReducer";
-import {Dispatch} from "redux";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Loader from "../../common/preloader/Loader";
+import {usersAPI} from "../../ api/api";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -39,23 +38,22 @@ export type ResponseType = {
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.loading(true)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
+
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(res => {
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
+                // debugger
+                this.props.setUsers(res.items)
+                this.props.setTotalUsersCount(res.totalCount)
                 this.props.loading(false)
             })
     }
 
     handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         this.props.setCurrentPage(value)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${value}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
+
+        usersAPI.getUsers(value, this.props.pageSize)
             .then(res => {
-                this.props.setUsers(res.data.items)
+                this.props.setUsers(res.items)
             })
     }
 
@@ -108,5 +106,12 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 //     }
 // }
 
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, loading})(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    loading
+})(UsersContainer)
 

@@ -51,7 +51,7 @@ const Users = (props: UsersPropsType) => {
                                 axios.delete<ResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
                                     headers: {
-                                        'API-KEY': '41a57b15-e11f-44c8-97d0-06e777d3aac1'
+                                        'api-key': '41a57b15-e11f-44c8-97d0-06e777d3aac1'
                                     }
 
                                 })
