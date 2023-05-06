@@ -16,8 +16,8 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     handleChange: (event: React.ChangeEvent<unknown>, value: number) => void
-    followInProgress: (progress: boolean) => void
-    followingInProgress: boolean
+    followInProgress: (progress: boolean, userId: number) => void
+    followingInProgress: number[]
 }
 export type FollowResponseType = {
     resultCode: number
@@ -49,10 +49,10 @@ const Users = (props: UsersPropsType) => {
                     </NavLink>
                     {u.followed
                         ? <div>
-                            <button disabled={props.followingInProgress} className={s.button} onClick={() => {
-                                props.followInProgress(true)
+                            <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.button} onClick={() => {
+                                props.followInProgress(true, u.id)
                                 followUnfollowAPI.unFollow(u.id).then(res => {
-                                    props.followInProgress(false)
+                                    props.followInProgress(false, u.id)
                                     if (res.data.resultCode === 0) {
                                         props.unfollow(u.id)
                                     }
@@ -63,10 +63,10 @@ const Users = (props: UsersPropsType) => {
                             </button>
                         </div>
                         : <div>
-                            <button disabled={props.followingInProgress} className={s.button} onClick={() => {
-                                props.followInProgress(true)
+                            <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.button} onClick={() => {
+                                props.followInProgress(true, u.id)
                                 followUnfollowAPI.follow(u.id).then(res => {
-                                    props.followInProgress(false)
+                                    props.followInProgress(false, u.id)
                                     if (res.data.resultCode === 0) {
                                         props.follow(u.id)
                                     }

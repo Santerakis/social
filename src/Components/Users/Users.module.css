@@ -34,6 +34,9 @@
     border: none;
 
 }
+.button:disabled {
+    background: darkgray;
+}
 .selectedButton{
     background: darkgray;
 }

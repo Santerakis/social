@@ -18,7 +18,7 @@ type MapStateToPropsType = {
     currentPage: number
     totalUsersCount: number
     isLoading: boolean
-    followingInProgress: boolean
+    followingInProgress: number[]
 }
 type MapDispatchToProps = {
     follow: (userId: number) => void
@@ -27,7 +27,7 @@ type MapDispatchToProps = {
     setCurrentPage: (users: number) => void
     setTotalUsersCount: (count: number) => void
     loading: (isLoading: boolean) => void
-    followInProgress: (progress: boolean) => void
+    followInProgress: (progress: boolean, userId: number) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 

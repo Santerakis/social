@@ -1,14 +1,14 @@
 import {ActionType} from "./reduxStore";
 
 // export type LocationType = {city: string, country: string}
-export type UserType = {name: string, id: number, uniqueUrlName: null, photos: {small: null, large: null}, status: null, followed: boolean}
+export type UserType = { name: string, id: number, uniqueUrlName: null, photos: { small: null, large: null }, status: null, followed: boolean }
 export type UsersPageType = {
     users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isLoading: boolean
-    followingInProgress: boolean
+    followingInProgress: number[]
 }
 let initialState = {
     users: [],
@@ -16,7 +16,7 @@ let initialState = {
     totalUsersCount: 15,
     currentPage: 1,
     isLoading: false,
-    followingInProgress: false
+    followingInProgress: [2]
 }
 // let initialState = {
 //     users:
@@ -30,9 +30,9 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
     console.log('render userReducer')
     switch (action.type) {
         case 'FOLLOW':
-            return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: true} :u)}
+            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
         case 'UNFOLLOW':
-            return {...state, users: state.users.map(u => u.id === action.userId ?{...u, followed: false} :u)}
+            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
         case 'SET-USERS':
             return {...state, users: [...action.users] as UserType[]}
         case 'SET-CURRENT-PAGE' :
@@ -42,7 +42,12 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
         case 'IS-LOADING' :
             return {...state, isLoading: action.isLoading}
         case 'FOLLOW-IN_PROGRESS' :
-            return {...state, followingInProgress: action.progress}
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id != action.userId)
+            }
         default:
             return state
     }
@@ -54,7 +59,7 @@ export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users} as co
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalUsersCount = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
 export const loading = (isLoading: boolean) => ({type: 'IS-LOADING', isLoading} as const)
-export const followInProgress = (progress: boolean) => ({type: 'FOLLOW-IN_PROGRESS', progress} as const)
+export const followInProgress = (isFetching: boolean, userId: number) => ({type: 'FOLLOW-IN_PROGRESS', userId, isFetching} as const)
 
 export type UsersAT =
     ReturnType<typeof follow>
