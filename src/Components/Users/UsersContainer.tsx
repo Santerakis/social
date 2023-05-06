@@ -1,17 +1,9 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/reduxStore";
-import {
-    follow, followInProgress, getUserTC, loading,
-    setCurrentPage, setTotalUsersCount,
-    setUsers,
-    unfollow,
-    UserType
-} from "../../redux/usersReducer";
+import {follow, followInProgress, followTC, getUserTC, unfollow, unfollowTC, UserType} from "../../redux/usersReducer";
 import React from "react";
 import Users from "./Users";
 import Loader from "../../common/preloader/Loader";
-import {usersAPI} from "../../ api/api";
-import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -24,12 +16,14 @@ type MapStateToPropsType = {
 type MapDispatchToProps = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (users: number) => void
-    setTotalUsersCount: (count: number) => void
-    loading: (isLoading: boolean) => void
+    // setUsers: (users: UserType[]) => void
+    // setCurrentPage: (users: number) => void
+    // setTotalUsersCount: (count: number) => void
+    // loading: (isLoading: boolean) => void
     followInProgress: (progress: boolean, userId: number) => void
     getUserTC: (currentPage: number, pageSize: number) => void
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 
@@ -50,16 +44,16 @@ class UsersContainer extends React.Component<UsersPropsType> {
         //         this.props.setTotalUsersCount(res.totalCount)
         //         this.props.loading(false)
         //     })
-
     }
 
-    handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        this.props.setCurrentPage(value)
+    handleChange = (event: React.ChangeEvent<unknown>, valueCurrentPage: number) => {
+        this.props.getUserTC(valueCurrentPage, this.props.pageSize)
 
-        usersAPI.getUsers(value, this.props.pageSize)
-            .then(res => {
-                this.props.setUsers(res.items)
-            })
+        // this.props.setCurrentPage(valueCurrentPage)
+        // usersAPI.getUsers(valueCurrentPage, this.props.pageSize)
+        //     .then(res => {
+        //         this.props.setUsers(res.items)
+        //     })
     }
 
     render() {
@@ -75,6 +69,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
                          handleChange={this.handleChange}
                          followInProgress={this.props.followInProgress}
                          followingInProgress={this.props.followingInProgress}
+                         unfollowTC={this.props.unfollowTC}
+                         followTC={this.props.followTC}
 
                 />}
         </>
@@ -118,11 +114,9 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    loading,
     followInProgress,
-    getUserTC
+    getUserTC,
+    unfollowTC,
+    followTC
 })(UsersContainer)
 

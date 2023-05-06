@@ -1,6 +1,7 @@
 import {ActionType} from "./reduxStore";
 import {Dispatch} from "redux";
-import {usersAPI} from "../ api/api";
+import {followUnfollowAPI, usersAPI} from "../ api/api";
+import dialogs from "../Components/Dialogs/Dialogs";
 
 // export type LocationType = {city: string, country: string}
 export type UserType = { name: string, id: number, uniqueUrlName: null, photos: { small: null, large: null }, status: null, followed: boolean }
@@ -74,13 +75,32 @@ export type UsersAT =
 
 export const getUserTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(loading(true))
-
+    dispatch(setCurrentPage(currentPage))
     usersAPI.getUsers(currentPage, pageSize)
         .then(res => {
             dispatch(setUsers(res.items))
             dispatch(setTotalUsersCount(res.totalCount))
             dispatch(loading(false))
         })
+}
+
+export const unfollowTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(followInProgress(true, userId))
+    followUnfollowAPI.unFollow(userId).then(res => {
+        dispatch(followInProgress(false, userId))
+        if (res.data.resultCode === 0) {
+            dispatch(unfollow(userId))
+        }
+    })
+}
+export const followTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(followInProgress(true, userId))
+    followUnfollowAPI.follow(userId).then(res => {
+        dispatch(followInProgress(false, userId))
+        if (res.data.resultCode === 0) {
+            dispatch(follow(userId))
+        }
+    })
 }
 
 export default userReducer
