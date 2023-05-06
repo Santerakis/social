@@ -8,13 +8,15 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isLoading: boolean
+    followingInProgress: boolean
 }
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 15,
     currentPage: 1,
-    isLoading: false
+    isLoading: false,
+    followingInProgress: false
 }
 // let initialState = {
 //     users:
@@ -39,6 +41,8 @@ const userReducer = (state: UsersPageType = initialState, action: ActionType): U
             return {...state, totalUsersCount: action.count}
         case 'IS-LOADING' :
             return {...state, isLoading: action.isLoading}
+        case 'FOLLOW-IN_PROGRESS' :
+            return {...state, followingInProgress: action.progress}
         default:
             return state
     }
@@ -50,6 +54,7 @@ export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users} as co
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalUsersCount = (count: number) => ({type: 'SET-TOTAL-USER-COUNT', count} as const)
 export const loading = (isLoading: boolean) => ({type: 'IS-LOADING', isLoading} as const)
+export const followInProgress = (progress: boolean) => ({type: 'FOLLOW-IN_PROGRESS', progress} as const)
 
 export type UsersAT =
     ReturnType<typeof follow>
@@ -58,5 +63,6 @@ export type UsersAT =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof loading>
+    | ReturnType<typeof followInProgress>
 
 export default userReducer

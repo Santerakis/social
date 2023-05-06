@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/reduxStore";
 import {
-    follow, loading,
+    follow, followInProgress, loading,
     setCurrentPage, setTotalUsersCount,
     setUsers,
     unfollow,
@@ -18,6 +18,7 @@ type MapStateToPropsType = {
     currentPage: number
     totalUsersCount: number
     isLoading: boolean
+    followingInProgress: boolean
 }
 type MapDispatchToProps = {
     follow: (userId: number) => void
@@ -26,6 +27,7 @@ type MapDispatchToProps = {
     setCurrentPage: (users: number) => void
     setTotalUsersCount: (count: number) => void
     loading: (isLoading: boolean) => void
+    followInProgress: (progress: boolean) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 
@@ -67,6 +69,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
                          follow={this.props.follow}
                          unfollow={this.props.unfollow}
                          handleChange={this.handleChange}
+                         followInProgress={this.props.followInProgress}
+                         followingInProgress={this.props.followingInProgress}
+
                 />}
         </>
     }
@@ -79,7 +84,8 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 // let mapDispatchToProps = (dispatch: Dispatch<ActionType>): MapDispatchToProps => {
@@ -111,6 +117,7 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    loading
+    loading,
+    followInProgress
 })(UsersContainer)
 

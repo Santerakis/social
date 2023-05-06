@@ -4,7 +4,6 @@ import userPhoto from '../../assets/images/social_user.png'
 import {UserType} from "../../redux/usersReducer";
 import Pagination from "@mui/material/Pagination";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {DataType} from "../Header/HeaderContainer";
 import {followUnfollowAPI} from "../../ api/api";
 
@@ -17,6 +16,8 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     handleChange: (event: React.ChangeEvent<unknown>, value: number) => void
+    followInProgress: (progress: boolean) => void
+    followingInProgress: boolean
 }
 export type FollowResponseType = {
     resultCode: number
@@ -48,25 +49,28 @@ const Users = (props: UsersPropsType) => {
                     </NavLink>
                     {u.followed
                         ? <div>
-                            <button className={s.button} onClick={() => {
+                            <button disabled={props.followingInProgress} className={s.button} onClick={() => {
+                                props.followInProgress(true)
                                 followUnfollowAPI.unFollow(u.id).then(res => {
-                                        if (res.data.resultCode === 0) {
-                                            props.unfollow(u.id)
-                                        }
-                                    })
+                                    props.followInProgress(false)
+                                    if (res.data.resultCode === 0) {
+                                        props.unfollow(u.id)
+                                    }
+                                })
 
 
                             }}>unfollow
                             </button>
                         </div>
                         : <div>
-                            <button className={s.button} onClick={() => {
-
+                            <button disabled={props.followingInProgress} className={s.button} onClick={() => {
+                                props.followInProgress(true)
                                 followUnfollowAPI.follow(u.id).then(res => {
-                                        if (res.data.resultCode === 0) {
-                                            props.follow(u.id)
-                                        }
-                                    })
+                                    props.followInProgress(false)
+                                    if (res.data.resultCode === 0) {
+                                        props.follow(u.id)
+                                    }
+                                })
                             }}>follow
                             </button>
                         </div>}
