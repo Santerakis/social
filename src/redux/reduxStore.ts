@@ -1,8 +1,9 @@
-import {combineReducers, createStore } from "redux";
+import {applyMiddleware, combineReducers, createStore } from "redux";
 import profileReducer, {ProfileActionType} from "./profileReducer";
 import messageReducer, {MessageActionType} from "./messageReducer";
 import usersReducer, {UsersAT} from "./usersReducer";
 import authReducer, {AuthAT} from "./authReducer";
+import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -11,7 +12,7 @@ const rootReducer = combineReducers({
     auth: authReducer
 })
 
-export let store = createStore(rootReducer)
+export let store = createStore(rootReducer, applyMiddleware(thunkMiddleware)) //applyMiddleware-функционал для redux конвеера(патерн)
 
 export type RootStateType = ReturnType<typeof rootReducer>
 

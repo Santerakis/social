@@ -1,4 +1,6 @@
 import {ActionType} from "./reduxStore";
+import {Dispatch} from "redux";
+import {usersAPI} from "../ api/api";
 
 // export type LocationType = {city: string, country: string}
 export type UserType = { name: string, id: number, uniqueUrlName: null, photos: { small: null, large: null }, status: null, followed: boolean }
@@ -69,5 +71,16 @@ export type UsersAT =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof loading>
     | ReturnType<typeof followInProgress>
+
+export const getUserTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(loading(true))
+
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(res => {
+            dispatch(setUsers(res.items))
+            dispatch(setTotalUsersCount(res.totalCount))
+            dispatch(loading(false))
+        })
+}
 
 export default userReducer

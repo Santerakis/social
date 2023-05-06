@@ -59,7 +59,7 @@ const Users = (props: UsersPropsType) => {
                                 })
 
 
-                            }}>unfollow
+                            }}>😪follow
                             </button>
                         </div>
                         : <div>

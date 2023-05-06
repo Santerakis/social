@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/reduxStore";
 import {
-    follow, followInProgress, loading,
+    follow, followInProgress, getUserTC, loading,
     setCurrentPage, setTotalUsersCount,
     setUsers,
     unfollow,
@@ -11,6 +11,7 @@ import React from "react";
 import Users from "./Users";
 import Loader from "../../common/preloader/Loader";
 import {usersAPI} from "../../ api/api";
+import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -28,6 +29,7 @@ type MapDispatchToProps = {
     setTotalUsersCount: (count: number) => void
     loading: (isLoading: boolean) => void
     followInProgress: (progress: boolean, userId: number) => void
+    getUserTC: (currentPage: number, pageSize: number) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToProps
 
@@ -39,14 +41,16 @@ export type ResponseType = {
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.loading(true)
+        this.props.getUserTC(this.props.currentPage, this.props.pageSize)
 
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(res => {
-                this.props.setUsers(res.items)
-                this.props.setTotalUsersCount(res.totalCount)
-                this.props.loading(false)
-            })
+        // this.props.loading(true)
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        //     .then(res => {
+        //         this.props.setUsers(res.items)
+        //         this.props.setTotalUsersCount(res.totalCount)
+        //         this.props.loading(false)
+        //     })
+
     }
 
     handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -118,6 +122,7 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     loading,
-    followInProgress
+    followInProgress,
+    getUserTC
 })(UsersContainer)
 
