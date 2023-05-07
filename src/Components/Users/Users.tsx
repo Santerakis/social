@@ -35,7 +35,7 @@ const Users = (props: UsersPropsType) => {
     //     pages.push({id: i})
     // }
 
-    return <div>
+    return <div className={s.usersBlock}>
         <p>Users</p>
         <Pagination count={pagesCount} page={props.currentPage} onChange={props.handleChange} color="primary"
                     size="small"/>
@@ -84,7 +84,7 @@ const Users = (props: UsersPropsType) => {
                 <div className={s.userInfo}>
                     <div>
                         <div>{u.name}</div>
-                        <div>{'u.status'}</div>
+                        <div>{u.status}</div>
                     </div>
                     <div className={s.location}>
                         <div>{'u.location.country'},</div>

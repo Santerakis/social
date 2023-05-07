@@ -1,5 +1,7 @@
 import {ActionType} from "./reduxStore";
 import {ProfileResponseType} from "../Components/Profile/ProfileContainer";
+import {Dispatch} from "redux";
+import {profileAPI} from "../ api/api";
 
 
 // {
@@ -72,5 +74,12 @@ export type ProfileActionType =
     AddPostActionType
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
+
+export const getProfileTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.get(userId)
+        .then(res => {
+            dispatch(setUserProfile(res.data))
+        })
+}
 
 export default profileReducer

@@ -2,6 +2,7 @@ import axios from "axios";
 import {ResponseType} from "../Components/Users/UsersContainer";
 import {FollowResponseType} from "../Components/Users/Users";
 import {AuthMeResponseType} from "../Components/Header/HeaderContainer";
+import {ProfileResponseType} from "../Components/Profile/ProfileContainer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -19,15 +20,17 @@ export const usersAPI = {
 }
 
 export const followUnfollowAPI = {
-    follow: (userId: number) => {
-        return instance.post<FollowResponseType>(`follow/${userId}`)
-    },
-    unFollow: (userId: number) => {
-        return instance.delete<FollowResponseType>(`follow/${userId}`)
-    }
+    follow: (userId: number) => instance.post<FollowResponseType>(`follow/${userId}`),
+    unFollow: (userId: number) => instance.delete<FollowResponseType>(`follow/${userId}`)
 }
+
 export const authAPI = {
     authMe: () => {
         return instance.get<AuthMeResponseType>(`auth/me`)
     },
+}
+export const profileAPI = {
+    get(userId: string) {
+        return instance.get<ProfileResponseType>(`profile/`+ userId)
+    }
 }
