@@ -3,25 +3,31 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../redux/messageReducer";
+import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
-    onAddMessage: () => void
-    onChangeArea: (newText: string) => void
+    isAuth: boolean
+    addMessageAC: () => void
+    updateNewMessageTextAC: (newText: string) => void
 }
 const Dialogs = (props: DialogsPropsType) => {
     console.log('render Dialogs')
+
+    if (!props.isAuth) {
+        return <Redirect to={'/login'}/>
+    }
 
     let dialogsElements = props.dialogs.map((d, i) => <DialogItem key={i} name={d.name} id={d.id}/>)
     let messagesElements = props.messages.map((m, i) => <Message key={i} message={m.message} id={m.id}/>)
 
     let onChangeArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeArea(e.currentTarget.value)
+        props.updateNewMessageTextAC(e.currentTarget.value)
     }
     let onAddMessage = () => {
-        props.onAddMessage()
+        props.addMessageAC()
     }
 
     return (
