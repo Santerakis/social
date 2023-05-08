@@ -5,7 +5,7 @@ import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../redux/messageReducer";
 import {Redirect} from "react-router-dom";
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
@@ -16,9 +16,9 @@ type DialogsPropsType = {
 const Dialogs = (props: DialogsPropsType) => {
     console.log('render Dialogs')
 
-    if (!props.isAuth) {
-        return <Redirect to={'/login'}/>
-    }
+    // if (!props.isAuth) {
+    //     return <Redirect to={'/login'}/>
+    // }
 
     let dialogsElements = props.dialogs.map((d, i) => <DialogItem key={i} name={d.name} id={d.id}/>)
     let messagesElements = props.messages.map((m, i) => <Message key={i} message={m.message} id={m.id}/>)
