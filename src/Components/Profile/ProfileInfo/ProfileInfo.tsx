@@ -6,7 +6,7 @@ import userPhoto from "../../../assets/images/social_user.png";
 
 
 type ProfileInfoType = {
-    userProfile: ProfileResponseType
+    userProfile: ProfileResponseType | null
 }
 const ProfileInfo = (props: ProfileInfoType) => {
     if (!props.userProfile) {
