@@ -4,6 +4,8 @@ import {follow, followInProgress, followTC, getUserTC, unfollow, unfollowTC, Use
 import React from "react";
 import Users from "./Users";
 import Loader from "../../common/preloader/Loader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -33,7 +35,7 @@ export type ResponseType = {
     totalCount: number
 }
 
-class UsersContainer extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersPropsType, RootStateType> {
     componentDidMount() {
         this.props.getUserTC(this.props.currentPage, this.props.pageSize)
 
@@ -111,12 +113,25 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 //     }
 // }
 
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    followInProgress,
-    getUserTC,
-    unfollowTC,
-    followTC
-})(UsersContainer)
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+            follow,
+            unfollow,
+            followInProgress,
+            getUserTC,
+            unfollowTC,
+            followTC
+        })
+)(UsersContainer)
+
+// export default withAuthRedirect(connect(mapStateToProps, {
+//     follow,
+//     unfollow,
+//     followInProgress,
+//     getUserTC,
+//     unfollowTC,
+//     followTC
+// })(UsersContainer))
 

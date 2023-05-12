@@ -5,6 +5,7 @@ import {getProfileTC, setUserProfile} from "../../redux/profileReducer";
 import {RootStateType} from "../../redux/reduxStore";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type PhotosType = {
     small: string
@@ -72,8 +73,14 @@ const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     // isAuth: state.auth.isAuth
 })
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+export default compose(
+    connect(mapStateToProps, {setUserProfile, getProfileTC}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
 
-export default withAuthRedirect(connect(mapStateToProps, {setUserProfile, getProfileTC})(WithUrlDataContainerComponent));
+
+// let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+// export default withAuthRedirect(connect(mapStateToProps, {setUserProfile, getProfileTC})(WithUrlDataContainerComponent));
 
 

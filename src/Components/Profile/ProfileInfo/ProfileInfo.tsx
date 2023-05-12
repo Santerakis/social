@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.css";
 import {ProfileResponseType} from "../ProfileContainer";
 import Loader from "../../../common/preloader/Loader";
 import userPhoto from "../../../assets/images/social_user.png";
+import ProfileStatus from "./ProfileStatus";
 
 
 type ProfileInfoType = {
@@ -19,9 +20,10 @@ const ProfileInfo = (props: ProfileInfoType) => {
             <div className={s.discriptionBlock}>
                 <img src={props.userProfile.photos.large || userPhoto} className={s.userPhoto}
                      alt="user photo"/>
+                <ProfileStatus status={'Hello my friends'}/>
+
 
                 {/*<img src={props.userProfile.photos.large}/>*/}
-                description
             </div>
         </div>
     );
