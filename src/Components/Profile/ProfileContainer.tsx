@@ -60,7 +60,7 @@ class ProfileContainer extends React.Component<PropsType, {}> {
         this.props.getProfileTC(userId)
         setTimeout(() => {
             this.props.setStatusTC(userId)
-        }, 1500)
+        }, 1000)
 
     }
 

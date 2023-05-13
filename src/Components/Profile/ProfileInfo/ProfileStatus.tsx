@@ -35,6 +35,13 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ClassStateTy
         this.setState({status: e.currentTarget.value})
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<ClassStateType>, snapshot?: any) {
+        console.log('didUpdate')
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+    }
+
     render() {
         return (
             <div>
@@ -43,7 +50,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ClassStateTy
                         <span onDoubleClick={this.activateEditMode}>{this.props.status || '---'}</span>
                     </div>
                 }
-                {!this.state.editMode &&
+                {this.state.editMode &&
                     <div>
                         <input onChange={this.onStatusChange} onBlur={this.deactivateEditMode}  type="text" value={this.state.status}/>
                     </div>
