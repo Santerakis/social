@@ -3,7 +3,6 @@ import {ProfileResponseType} from "../Components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {profileAPI} from "../ api/api";
 
-
 // {
 //     aboutMe: string
 //     contacts: {
@@ -27,6 +26,7 @@ export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
     userProfile: ProfileResponseType | null
+    status: string
 }
 type PostType = {
     id: number
@@ -36,7 +36,8 @@ type PostType = {
 let initialState = {
         posts: [{id: 1, message: 'Hi, how are you?', likesCount: 25}, {id: 2, message: 'It\'s my first post', likesCount: 105}, {id: 3, message: 'Hello', likesCount: 8}],
         newPostText: 'insert new post',
-        userProfile: null
+        userProfile: null,
+        status: ''
     }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
@@ -59,6 +60,8 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
         }
         case 'SET-USER-PROFILE':
             return {...state, userProfile: action.userProfile as ProfileResponseType}
+        case 'SET-STATUS':
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -66,6 +69,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
 export const addPostAC = (): AddPostActionType => ({type: 'ADD-POST'} as const) //Либо as const, либо возвращаймый тип, но когда исп ReturnType<> возн. зациклнинность типов, тогда только const
 export const updateNewPostTextAC = (newPostText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newPostText} as const)
 export const setUserProfile = (userProfile: ProfileResponseType) => ({type: 'SET-USER-PROFILE', userProfile} as const)
+export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -74,11 +78,26 @@ export type ProfileActionType =
     AddPostActionType
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
 
 export const getProfileTC = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.get(userId)
         .then(res => {
             dispatch(setUserProfile(res.data))
+        })
+}
+export const setStatusTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(res => {
+            dispatch(setStatus(res.data))
+        })
+}
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
         })
 }
 

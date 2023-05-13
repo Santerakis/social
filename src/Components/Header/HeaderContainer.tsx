@@ -3,7 +3,6 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {authMeTC, setAuthUserData} from "../../redux/authReducer";
 import {RootStateType} from "../../redux/reduxStore";
-import {authAPI} from "../../ api/api";
 
 export type DataType = {
     id: number | null
@@ -26,7 +25,7 @@ type MapDispatchToPropsType = {
 }
 export type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-class HeaderContainer extends React.Component<HeaderContainerPropsType> {
+class HeaderContainer extends React.Component<HeaderContainerPropsType, RootStateType> {
     componentDidMount() {
         this.props.authMeTC()
         // authAPI.authMe().then(res => {

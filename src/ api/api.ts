@@ -2,7 +2,7 @@ import {ResponseType} from "../Components/Users/UsersContainer";
 import {FollowResponseType} from "../Components/Users/Users";
 import {AuthMeResponseType} from "../Components/Header/HeaderContainer";
 import {ProfileResponseType} from "../Components/Profile/ProfileContainer";
-import axios, {CreateAxiosDefaults} from "axios";
+import axios, {AxiosResponse, CreateAxiosDefaults} from "axios";
 
 const instance = axios.create({
     withCredentials: true,
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         'API-KEY': '139e7d65-510f-462c-914c-d7a34626182d'
     }
-} as  CreateAxiosDefaults)
+} as CreateAxiosDefaults)
 
 export const usersAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
@@ -31,6 +31,19 @@ export const authAPI = {
 }
 export const profileAPI = {
     get(userId: string) {
-        return instance.get<ProfileResponseType>(`profile/`+ userId)
+        return instance.get<ProfileResponseType>(`profile/` + userId)
+    },
+    getStatus(userId: string) {
+        return instance.get<string>(`profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put<{ status: string }, AxiosResponse<UpdateStatusResultType>>('profile/status', {status})
     }
 }
+
+type UpdateStatusResultType =
+    {
+        resultCode: number
+        messages: string[]
+        data: {}
+    }
