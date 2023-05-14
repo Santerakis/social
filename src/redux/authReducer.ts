@@ -23,14 +23,14 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
+                isAuth: action.isAuth
             }
         default:
             return state
     }
 }
 
-export const setAuthUserData = (data: DataType) => ({type: 'SET-USER-DATA', data} as const)
+export const setAuthUserData = (data: DataType, isAuth: boolean) => ({type: 'SET-USER-DATA', data, isAuth} as const)
 
 export type AuthAT =
     ReturnType<typeof setAuthUserData>
@@ -38,7 +38,21 @@ export type AuthAT =
 export const authMeTC = () => (dispatch: Dispatch) => {
     authAPI.authMe().then(res => {
         if (res.data.resultCode === 0) {
-            dispatch(setAuthUserData(res.data.data))
+            dispatch(setAuthUserData(res.data.data, true))
+        }
+    })
+}
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    authAPI.login(email, password, rememberMe).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(authMeTC())
+        }
+    })
+}
+export const loginOutTC = () => (dispatch: Dispatch) => {
+    authAPI.loginOut().then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(setAuthUserData({ id: null, email: null, login: null,}, false))
         }
     })
 }

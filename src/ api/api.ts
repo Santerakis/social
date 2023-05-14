@@ -28,6 +28,12 @@ export const authAPI = {
     authMe: () => {
         return instance.get<AuthMeResponseType>(`auth/me`)
     },
+    login: (email, password, rememberMe) => {
+        return instance.post(`auth/login`,{email, password, rememberMe})
+    },
+    loginOut: () => {
+        return instance.delete<AuthMeResponseType>(`auth/login`)
+    },
 }
 export const profileAPI = {
     get(userId: string) {
