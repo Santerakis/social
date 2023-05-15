@@ -39,6 +39,8 @@ export const authMeTC = () => (dispatch: Dispatch) => {
     authAPI.authMe().then(res => {
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserData(res.data.data, true))
+        } else {
+            // let action = stopSubmit()
         }
     })
 }

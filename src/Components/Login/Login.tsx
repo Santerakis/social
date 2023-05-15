@@ -60,6 +60,8 @@ const LoginForm = (props: LoginPropsType) => {
     // console.log('touched: ',formik.touched)
     console.log('1er: ', formik.errors)
     console.log('2value: ',formik.values)
+    console.log('isValid:', formik.isValid)
+    console.log('dirty:', formik.dirty)
     if (props.isAuth)return <Redirect to={'profile'}/>
     return (
         <form onSubmit={formik.handleSubmit}>
