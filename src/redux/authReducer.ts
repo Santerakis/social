@@ -1,7 +1,8 @@
-import {ActionType} from "./reduxStore";
+import {ActionType, RootStateType} from "./reduxStore";
 import {DataType} from "../Components/Header/HeaderContainer";
 import {Dispatch} from "redux";
 import {authAPI} from "../ api/api";
+import {ThunkDispatch} from "redux-thunk";
 
 export type InitialStateType = {
     id: number | null
@@ -36,7 +37,7 @@ export type AuthAT =
     ReturnType<typeof setAuthUserData>
 
 export const authMeTC = () => (dispatch: Dispatch) => {
-    authAPI.authMe().then(res => {
+    return authAPI.authMe().then(res => {
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserData(res.data.data, true))
         } else {
@@ -44,12 +45,14 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         }
     })
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
-    authAPI.login(email, password, rememberMe).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(authMeTC())
-        }
-    })
+export const loginTC = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: ThunkDispatch<RootStateType, {}, AuthAT>) => {
+        authAPI.login(email, password, rememberMe).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(authMeTC())
+            }
+        })
+    }
 }
 export const loginOutTC = () => (dispatch: Dispatch) => {
     authAPI.loginOut().then(res => {

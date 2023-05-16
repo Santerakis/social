@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getProfileTC, setStatusTC, setUserProfile, updateStatusTC} from "../../redux/profileReducer";
 import {RootStateType} from "../../redux/reduxStore";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -40,12 +40,13 @@ export type mapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     userProfile: ProfileResponseType | null
     status: string
-    // isAuth: boolean
+    userId: number | null
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     setUserProfile: (userProfile: ProfileResponseType) => void
-    getProfileTC: (userId: string) => void
-    setStatusTC: (userId: string) => void
+    getProfileTC: (userId: number) => void
+    setStatusTC: (userId: number) => void
     updateStatusTC: (status: string) => void
 }
 export type ProfileUsersPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -53,15 +54,18 @@ export type PropsType = RouteComponentProps<PathParamsType> & ProfileUsersPropsT
 
 class ProfileContainer extends React.Component<PropsType, {}> {
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = +this.props.match.params.userId
         if (!userId) {
-            userId = '27514'
+            userId = this.props.userId
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
+
         this.props.getProfileTC(userId)
         setTimeout(() => {
             this.props.setStatusTC(userId)
         }, 1000)
-
     }
 
     render() {
@@ -74,11 +78,11 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     }
 }
 
-
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     userProfile: state.profilePage.userProfile,
-    status: state.profilePage.status
-    // isAuth: state.auth.isAuth
+    status: state.profilePage.status,
+    userId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(

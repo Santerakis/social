@@ -8,25 +8,6 @@ import {Redirect} from "react-router-dom";
 import {PropsType} from "../Profile/ProfileContainer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-// const DialogsContainer = () => {
-//
-//     return <StoreContext.Consumer>
-//         {
-//             (store) => {
-//                 const onAddMessage = () => {
-//                     store.dispatch(addMessageAC())
-//                 }
-//                 const onChangeArea = (newText: string) => {
-//                     store.dispatch(addMessageAC())
-//                 }
-//
-//                 return <Dialogs messagePage={store.getState().messagePage} onAddMessage={onAddMessage} onChangeArea={onChangeArea}/>
-//             }
-//         }
-//     </StoreContext.Consumer>
-// };
-// export default DialogsContainer;
-
 type mapStateToPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]

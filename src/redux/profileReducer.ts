@@ -80,13 +80,13 @@ export type ProfileActionType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 
-export const getProfileTC = (userId: string) => (dispatch: Dispatch) => {
+export const getProfileTC = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.get(userId)
         .then(res => {
             dispatch(setUserProfile(res.data))
         })
 }
-export const setStatusTC = (userId: string) => (dispatch: Dispatch) => {
+export const setStatusTC = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(res => {
             dispatch(setStatus(res.data))
