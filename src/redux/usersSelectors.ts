@@ -1,6 +1,17 @@
-export const getUsers = (state) => {
+import {createSelector} from "reselect";
+
+//простой селектор, выступает как зависимсть для "сложного" селектора
+export const selector = (state) => {
     return state.usersPage.users
 }
+
+// логика кэширокания (запоминание и актуализация)
+// обернули сложный селектор для сложных расчетов и там где создается копия объекта
+export const getUsers = createSelector (selector,(users) => {
+    return users.filter(u => true)   // эмитация нового объекта
+})
+
+
 export const getPageSize = (state) => {
     return state.usersPage.pageSize
 }

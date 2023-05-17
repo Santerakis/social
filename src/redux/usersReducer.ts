@@ -34,8 +34,8 @@ let initialState = {
 const userReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
     console.log('render userReducer')
     switch (action.type) {
-        case 'FAKE': return state   // в этом случае при setInterval mSTP вызываться не будет
-        // case 'FAKE': return {...state, fake: state.fake + 1}
+        // case 'FAKE': return state   // в этом случае при setInterval mSTP вызываться не будет
+        case 'FAKE': return {...state, fake: state.fake + 1}
         case 'FOLLOW':
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
         case 'UNFOLLOW':

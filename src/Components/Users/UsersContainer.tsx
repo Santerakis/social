@@ -12,7 +12,7 @@ import {
     getIsLoading,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsers, selector
 } from "../../redux/usersSelectors";
 
 type MapStateToPropsType = {
@@ -88,6 +88,7 @@ class UsersContainer extends React.Component<UsersPropsType, RootStateType> {
 }
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+    console.log('mSTP of users')
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
