@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {getProfileTC, setStatusTC, setUserProfile, updateStatusTC} from "../../redux/profileReducer";
 import {RootStateType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 type PhotosType = {
@@ -40,7 +39,7 @@ export type mapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     userProfile: ProfileResponseType | null
     status: string
-    userId: number | null
+    userId: number
     isAuth: boolean
 }
 type MapDispatchToPropsType = {
@@ -81,7 +80,7 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     userProfile: state.profilePage.userProfile,
     status: state.profilePage.status,
-    userId: state.auth.id,
+    userId: state.auth.id!,
     isAuth: state.auth.isAuth
 })
 

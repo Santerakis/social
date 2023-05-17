@@ -46,6 +46,11 @@ export const profileAPI = {
         return instance.put<{ status: string }, AxiosResponse<UpdateStatusResultType>>('profile/status', {status})
     }
 }
+export const photoApi = {
+    update(photo: string) {
+        return instance.put('profile/photo', {image: photo})
+    }
+}
 
 type UpdateStatusResultType =
     {

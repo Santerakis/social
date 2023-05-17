@@ -19,7 +19,7 @@
 }
 .loginInfo {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
 }
 button {
     border-radius: 5px;

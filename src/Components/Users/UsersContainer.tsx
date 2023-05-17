@@ -6,6 +6,14 @@ import Users from "./Users";
 import Loader from "../../common/preloader/Loader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsLoading,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/usersSelectors";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -80,16 +88,30 @@ class UsersContainer extends React.Component<UsersPropsType, RootStateType> {
 }
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
-    // const { users } = state.usersPage
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
+
+
+// let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+//     // const { users } = state.usersPage
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isLoading: state.usersPage.isLoading,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
+
 // let mapDispatchToProps = (dispatch: Dispatch<ActionType>): MapDispatchToProps => {
 //     return {
 //         follow: (userId: number) => {
@@ -115,7 +137,7 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 
 
 export default compose(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect(mapStateToProps, {
             follow,
             unfollow,
