@@ -69,6 +69,7 @@ class ProfileContainer extends React.Component<PropsType, {}> {
 
     render() {
         // if (!this.props.isAuth) return <Redirect to={'/login'}/>
+        console.log('RERENDER Profile')
         return (
             <div>
                 <Profile {...this.props}/>
@@ -77,12 +78,15 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     }
 }
 
-const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
-    userProfile: state.profilePage.userProfile,
-    status: state.profilePage.status,
-    userId: state.auth.id!,
-    isAuth: state.auth.isAuth
-})
+const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+    console.log('mSTP from connect of ProfileContainer')
+    return {
+        userProfile: state.profilePage.userProfile,
+        status: state.profilePage.status,
+        userId: state.auth.id!,
+        isAuth: state.auth.isAuth
+    }
+}
 
 export default compose(
     connect(mapStateToProps, {setUserProfile, getProfileTC, setStatusTC, updateStatusTC}),

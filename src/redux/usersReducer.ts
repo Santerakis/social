@@ -12,6 +12,7 @@ export type UsersPageType = {
     currentPage: number
     isLoading: boolean
     followingInProgress: number[]
+    fake: number
 }
 let initialState = {
     users: [],
@@ -19,7 +20,8 @@ let initialState = {
     totalUsersCount: 15,
     currentPage: 1,
     isLoading: false,
-    followingInProgress: [2]
+    followingInProgress: [2],
+    fake: 10
 }
 // let initialState = {
 //     users:
@@ -32,6 +34,8 @@ let initialState = {
 const userReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
     console.log('render userReducer')
     switch (action.type) {
+        // case 'FAKE': return state // в этом случае при setInterval mSTP вызываться не будет
+        case 'FAKE': return {...state, fake: state.fake + 1}
         case 'FOLLOW':
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
         case 'UNFOLLOW':
